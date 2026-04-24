@@ -1,0 +1,67 @@
+src/
+
+    components/
+        ui/ // shadcn primitives (Button, Sheet, ScrollArea, Input, etc.)
+        icons/ // lucide/custom icons exports
+        layout/
+            Sidebar.tsx
+            Topbar.tsx
+            AppLayout.tsx
+        feed/
+            TweetCard.tsx
+            TweetComposer.tsx
+            TweetList.tsx
+        profile/
+            ProfileHeader.tsx
+            ProfileTweets.tsx
+        auth/
+            SignInForm.tsx
+            SignUpForm.tsx
+        common/
+            Avatar.tsx
+            LoadingSpinner.tsx
+            EmptyState.tsx
+    hooks/
+        useAuth.ts
+        useInfiniteScroll.ts
+        useDebounce.ts
+    lib/
+        api.ts // fetch wrapper / axios
+        client.ts // react-query client or fetch helpers
+        prisma.ts (if backend in same repo) / supabase.ts / firebase.ts
+    pages/ (Next.js) or routes/ (app-router) or app/
+        _app.tsx / layout.tsx
+        index.tsx // home / feed
+        explore.tsx
+        notifications.tsx
+        messages/
+            index.tsx
+            [id].tsx
+        profile/
+            [username].tsx
+        settings.tsx
+    styles/
+        globals.css
+        tailwind.css
+    store/ (optional)
+        authStore.ts
+        uiStore.ts
+    types/
+        index.d.ts
+        tweet.ts
+        user.ts
+    utils/
+        time.ts // relative time helpers
+        validators.ts
+    hooks/
+        (already listed) // keep single hooks folder
+    services/
+        tweetService.ts
+        userService.ts
+        mediaService.ts
+    assets/
+        images/
+        logos/
+    tests/
+        components/
+        pages/
