@@ -3,11 +3,11 @@
 export interface User {
   user_id: number;
   username: string;
-  fullname: string;
+  fullname?: string;
   bio?: string;
   profile_image?: string;
   cover_image?: string;
-}
+} 
 
 export interface TweetMedia {
   media_url: string;

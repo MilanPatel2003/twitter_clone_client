@@ -34,7 +34,11 @@ npm run dev
 
 **Steps:**
 
-1. Open `AuthContext.tsx`. Right now it has a mock user. Replace it with the real version that calls the API (register, login, `/auth/me` on mount).
+1. Opage. You should stay logged in (because `useEffect` calls `/auth/me`).
+
+6. Test logout from the sidebar dropdown.
+
+**You know Phase 1 is done wpen `AuthContext.tsx`. Right now it has a mock user. Replace it with the real version that calls the API (register, login, `/auth/me` on mount).
 
 2. Test register at `/register` — check the network tab, make sure you get a token back.
 
@@ -42,11 +46,7 @@ npm run dev
 
 4. Open DevTools → Application → Local Storage. You should see `token` stored.
 
-5. Refresh the page. You should stay logged in (because `useEffect` calls `/auth/me`).
-
-6. Test logout from the sidebar dropdown.
-
-**You know Phase 1 is done when:**
+5. Refresh the hen:**
 - Register works and saves token
 - Login works and redirects to feed
 - Refresh keeps you logged in
