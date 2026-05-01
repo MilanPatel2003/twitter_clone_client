@@ -1,122 +1,84 @@
 // src/components/profile/ProfileHeader.tsx
-import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { type User } from "@/types";
 import { useAuth } from "@/context/AuthContext";
+import { useFollow } from "@/hooks/useFollow";
 
-interface ProfileHeaderProps {
+interface Props {
   profile: User;
   tweetCount?: number;
   isFollowing?: boolean;
-  onFollow?: () => void;
-  onUnfollow?: () => void;
 }
 
-export function ProfileHeader({
-  profile,
-  tweetCount = 0,
-  isFollowing = false,
-  onFollow,
-  onUnfollow,
-}: ProfileHeaderProps) {
+export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const isOwnProfile = user?.username === profile.username;
-  const [following, setFollowing] = useState(isFollowing);
-
-  const handleFollowToggle = async () => {
-    if (following) {
-      await onUnfollow?.();
-      setFollowing(false);
-    } else {
-      await onFollow?.();
-      setFollowing(true);
-    }
-  };
+  const isOwn = user?.username === profile.username;
+  const { isFollowing: following, follow, unFollow } = useFollow(isFollowing);
 
   return (
     <div>
-      {/* Top bar */}
-      <div className="flex items-center gap-6 px-4 py-3 sticky top-0 bg-white/90 backdrop-blur-sm z-10 border-b border-gray-200">
+
+      {/* Back button + name */}
+      <div className="flex items-center gap-4 px-4 py-3 sticky top-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 z-10">
         <button
-          className="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
           onClick={() => navigate(-1)}
+          className="w-9 h-9 rounded-full hover:bg-gray-100 flex items-center justify-center"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
         <div>
-          <h1 className="font-bold text-xl text-gray-900">{profile.fullname}</h1>
+          <p className="font-bold text-lg text-gray-900">{profile.fullname}</p>
           <p className="text-gray-500 text-sm">{tweetCount} Tweets</p>
         </div>
       </div>
 
-      {/* Cover image */}
-      <div className="relative">
-        <div className="h-48 bg-[#cfd9de] overflow-hidden">
-          {profile.cover_image ? (
-            <img
-              src={profile.cover_image}
-              alt="Cover"
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-r from-[#1d9bf0]/30 to-[#1d9bf0]/10" />
-          )}
-        </div>
-
-        {/* Avatar overlapping cover */}
-        <div className="absolute -bottom-12 left-4">
-          <Avatar className="w-24 h-24 border-4 border-white">
-            <AvatarImage src={profile.profile_image} />
-            <AvatarFallback className="bg-[#1d9bf0] text-white text-3xl font-bold">
-              {/* {profile.fullname.toUpperCase()} */}
-            </AvatarFallback>
-          </Avatar>
-        </div>
-
-        {/* Action button top-right */}
-        <div className="absolute -bottom-12 right-4">
-          {isOwnProfile ? (
-            <Button
-              variant="outline"
-              className="rounded-full font-bold border-gray-300 text-gray-900 hover:bg-gray-50 h-9 px-4"
-            >
-              Edit profile
-            </Button>
-          ) : (
-            <Button
-              variant={following ? "outline" : "default"}
-              className={
-                following
-                  ? "rounded-full font-bold border-gray-900 text-gray-900 hover:border-red-300 hover:bg-red-50 hover:text-red-500 h-9 px-4 group"
-                  : "rounded-full font-bold bg-gray-900 hover:bg-gray-700 text-white h-9 px-4"
-              }
-              onClick={handleFollowToggle}
-            >
-              {following ? (
-                <>
-                  <span className="group-hover:hidden">Following</span>
-                  <span className="hidden group-hover:inline">Unfollow</span>
-                </>
-              ) : (
-                "Follow"
-              )}
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {/* Profile info */}
-      <div className="px-4 pt-16 pb-4">
-        <h2 className="font-extrabold text-xl text-gray-900">{profile.fullname}</h2>
-        <p className="text-gray-500 text-sm">@{profile.username}</p>
-        {profile.bio && (
-          <p className="text-gray-900 text-sm mt-3 leading-relaxed">{profile.bio}</p>
+      {/* Cover */}
+      <div className="h-48 bg-gradient-to-r from-[#1d9bf0]/30 to-[#1d9bf0]/10">
+        {profile.cover_image && (
+          <img src={profile.cover_image} className="w-full h-full object-cover" />
         )}
       </div>
+
+      {/* Avatar + follow button */}
+      <div className="flex items-end justify-between px-4 -mt-12 mb-3">
+        <Avatar className="w-24 h-24 border-4 border-white">
+          <AvatarImage src={profile.profile_image} />
+          <AvatarFallback className="bg-[#1d9bf0] text-white text-3xl font-bold">
+            {profile.fullname?.[0]?.toUpperCase() ?? "U"}
+          </AvatarFallback>
+        </Avatar>
+
+        {isOwn ? (
+          <Button variant="outline" className="rounded-full font-bold h-9 px-4">
+            Edit profile
+          </Button>
+        ) : (
+          <Button
+            onClick={() => following ? unFollow(profile.user_id) : follow(profile.user_id)}
+            className={`rounded-full font-bold h-9 px-4 ${
+              following
+                ? "bg-white text-gray-900 border border-gray-300 hover:border-red-300 hover:text-red-500"
+                : "bg-gray-900 text-white hover:bg-gray-700"
+            }`}
+          >
+            {following ? "Following" : "Follow"}
+          </Button>
+        )}
+      </div>
+
+      {/* Bio */}
+      <div className="px-4 pb-4">
+        <p className="font-bold text-xl text-gray-900">{profile.fullname ?? ""}</p>
+        <p className="text-gray-500 text-sm">@{profile.username}</p>
+        {profile.bio && (
+          <p className="text-gray-800 text-sm mt-2">{profile.bio}</p>
+        )}
+      </div>
+
     </div>
   );
 }

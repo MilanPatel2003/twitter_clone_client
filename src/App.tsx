@@ -4,8 +4,8 @@ import { LoginPage } from "@/pages/LoginPage";
 import { RegisterPage } from "@/pages/RegisterPage";
 import { FeedPage } from "@/pages/FeedPage";
 import { TweetDetailPage } from "./pages/TweetDetails";
-// import { ProfilePage } from "@/pages/ProfilePage";
-// import { TweetDetailPage } from "@/pages/TweetDetailPage";
+import { ProfilePage } from "./pages/ProfilePage";
+import { SearchPage } from "./pages/SearchPage";
 // import { NotificationsPage } from "@/pages/NotificationsPage";
 
 const Spinner = () => (
@@ -16,7 +16,7 @@ const Spinner = () => (
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
-  if (isLoading) return <Spinner />; // ← wait, don't redirect yet
+  if (isLoading) return <Spinner />; 
   if (!user) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
@@ -35,8 +35,10 @@ function AppRoutes() {
       <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
       <Route path="/" element={<PrivateRoute><FeedPage /></PrivateRoute>} />
      <Route path="/tweet/:tweetId" element={<PrivateRoute><TweetDetailPage /></PrivateRoute>} />
-      {/*  <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />
-      <Route path="/:username" element={<PrivateRoute><ProfilePage /></PrivateRoute>} /> */}
+      {/*  <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />*/}
+      <Route path="/:username" element={<PrivateRoute><ProfilePage /></PrivateRoute>} /> 
+      <Route path="/search" element={<PrivateRoute><SearchPage /></PrivateRoute>} />
+
     </Routes>
   );
 }

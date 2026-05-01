@@ -6,6 +6,7 @@ import {
   User,
   LogOut,
   Feather,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,6 +22,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { icon: Home, label: "Home", to: "/" },
   { icon: Bell, label: "Notifications", to: "/notifications" },
+    { icon: Search, label: "Search", to: "/search" },
+
   { icon: User, label: "Profile", to: "/profile" },
 ];
 
