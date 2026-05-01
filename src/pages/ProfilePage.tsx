@@ -1,11 +1,13 @@
 // src/pages/ProfilePage.tsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ProfileHeader } from "@/components/profile/ProfileHeader";
+import { ProfileHeader } from "@/components/Profile/ProfileHeader";
 import { type User, type Tweet } from "@/types";
 import api from "@/lib/api";
 import { MainLayout } from "@/components/Layout/MainLayout";
-import { ProfileTabs } from "@/components/tweet/ProfileTabs";
+import { ProfileTabs } from "@/components/Profile/ProfileTabs";
+import { useFeedTweets } from "@/hooks/useTweets";
+import { toast } from "sonner";
 
 export function ProfilePage() {
   const { username } = useParams<{ username: string }>();
@@ -17,6 +19,7 @@ export function ProfilePage() {
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
 
   useEffect(() => {
     if (!username) return;
@@ -38,8 +41,15 @@ export function ProfilePage() {
       })
       .finally(() => setIsLoading(false));
   }, [username]);
-    const handleDeleteTweet = (tweetId: number) => {
+    const handleDeleteTweet = async(tweetId: number) => {
+      try {
+        await api.delete(`tweets/${tweetId}`);
+      } catch {
+        toast.error("Failed to delete tweet")
+      }
     setTweets((prev) => prev.filter((t) => t.tweet_id !== tweetId));
+    
+    
   };
 
   if (isLoading) {

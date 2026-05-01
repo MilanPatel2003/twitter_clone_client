@@ -92,7 +92,7 @@ export function TweetCard({ tweet, onDelete }: Props) {
           </div>
 
           {/* Content */}
-          <p className="text-sm text-gray-900 mt-1 leading-relaxed">{data.content}</p>
+          <p className="text-sm text-gray-900 mt-1 leading-relaxed wrap-break-word">{data.content}</p>
 
           {/* Media */}
           {data.media_url && data.media_type && (
@@ -102,14 +102,15 @@ export function TweetCard({ tweet, onDelete }: Props) {
           )}
 
           {/* Actions */}
-          <div onClick={(e) => e.stopPropagation()}>
+        <div onClick={(e) => e.stopPropagation()} className="max-w-full">
             <TweetActions
               tweet={data}
               onLike={handleLike}
               onRetweet={handleRetweet}
               onComment={() => navigate(`/tweet/${data.tweet_id}`)}
             />
-          </div>
+          </div> 
+         
         </div>
       </div>
     </div>

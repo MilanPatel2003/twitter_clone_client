@@ -37,7 +37,7 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
       </div>
 
       {/* Cover */}
-      <div className="h-48 bg-gradient-to-r from-[#1d9bf0]/30 to-[#1d9bf0]/10">
+      <div className="h-48 bg-linear-to-r from-[#1d9bf0]/30 to-[#1d9bf0]/10">
         {profile.cover_image && (
           <img src={profile.cover_image} className="w-full h-full object-cover" />
         )}
@@ -53,7 +53,7 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
         </Avatar>
 
         {isOwn ? (
-          <Button variant="outline" className="rounded-full font-bold h-9 px-4">
+          <Button onClick={()=>navigate("/profile/edit")} variant="outline" className="rounded-full font-bold h-9 px-4">
             Edit profile
           </Button>
         ) : (

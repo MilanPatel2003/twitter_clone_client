@@ -13,5 +13,6 @@ export function useProfile(username: string) {
       .finally(() => setIsLoading(false));
   }, [username]);
 
+ 
   return { profile, isLoading };
 }

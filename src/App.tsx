@@ -6,6 +6,7 @@ import { FeedPage } from "@/pages/FeedPage";
 import { TweetDetailPage } from "./pages/TweetDetails";
 import { ProfilePage } from "./pages/ProfilePage";
 import { SearchPage } from "./pages/SearchPage";
+import { EditProfilePage } from "./pages/EditPage";
 // import { NotificationsPage } from "@/pages/NotificationsPage";
 
 const Spinner = () => (
@@ -16,7 +17,7 @@ const Spinner = () => (
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
-  if (isLoading) return <Spinner />; 
+  if (isLoading) return <Spinner />;
   if (!user) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
@@ -31,14 +32,63 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-      <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
-      <Route path="/" element={<PrivateRoute><FeedPage /></PrivateRoute>} />
-     <Route path="/tweet/:tweetId" element={<PrivateRoute><TweetDetailPage /></PrivateRoute>} />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <RegisterPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <FeedPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/tweet/:tweetId"
+        element={
+          <PrivateRoute>
+            <TweetDetailPage />
+          </PrivateRoute>
+        }
+      />
       {/*  <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />*/}
-      <Route path="/:username" element={<PrivateRoute><ProfilePage /></PrivateRoute>} /> 
-      <Route path="/search" element={<PrivateRoute><SearchPage /></PrivateRoute>} />
-
+      <Route
+        path="/:username"
+        element={
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/search"
+        element={
+          <PrivateRoute>
+            <SearchPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile/edit"
+        element={
+          <PrivateRoute>
+            <EditProfilePage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 }

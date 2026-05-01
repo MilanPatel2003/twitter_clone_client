@@ -11,9 +11,9 @@ interface Props {
 }
 
 export function TweetActions({ tweet, onLike, onRetweet, onComment }: Props) {
+
   return (
     <div className="flex items-center gap-6 mt-3">
-
       {/* Comment */}
       <button
         onClick={onComment}
@@ -27,7 +27,7 @@ export function TweetActions({ tweet, onLike, onRetweet, onComment }: Props) {
       <button
         onClick={onRetweet}
         className={`flex items-center gap-1.5 transition-colors ${
-          tweet.isRetweeted ? "text-green-500" : "text-gray-500 hover:text-green-500"
+          tweet.isLiked ? "text-green-500" : "text-gray-500 hover:text-green-500"
         }`}
       >
         <Repeat2 className="w-4 h-4" />
