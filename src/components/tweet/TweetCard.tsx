@@ -9,6 +9,8 @@ import { formatDate } from "@/lib/utils";
 import {type Tweet } from "@/types";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
+import { useReactions } from "@/hooks/useReactions";
+
 
 interface Props {
   tweet: Tweet;
@@ -19,15 +21,17 @@ export function TweetCard({ tweet, onDelete }: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState(tweet);
+  const { likeTweet, unlikeTweet } = useReactions();
+
 
   const isOwner = user?.username === data.username;
 
   const handleLike = async () => {
     if (data.isLiked) {
-      await api.delete(`/reactions/tweets/${data.tweet_id}`);
+      unlikeTweet(data.tweet_id)
       setData((prev) => ({ ...prev, isLiked: false, like_count: prev.like_count - 1 }));
     } else {
-      await api.post(`/reactions/tweets/${data.tweet_id}`);
+      likeTweet(data.tweet_id)
       setData((prev) => ({ ...prev, isLiked: true, like_count: prev.like_count + 1 }));
     }
   };
