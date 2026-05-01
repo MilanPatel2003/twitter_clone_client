@@ -13,7 +13,11 @@ interface Props {
   isFollowing?: boolean;
 }
 
-export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: Props) {
+export function ProfileHeader({
+  profile,
+  tweetCount = 0,
+  isFollowing = false,
+}: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const isOwn = user?.username === profile.username;
@@ -21,7 +25,6 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
 
   return (
     <div>
-
       {/* Back button + name */}
       <div className="flex items-center gap-4 px-4 py-3 sticky top-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 z-10">
         <button
@@ -39,7 +42,10 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
       {/* Cover */}
       <div className="h-48 bg-linear-to-r from-[#1d9bf0]/30 to-[#1d9bf0]/10">
         {profile.cover_image && (
-          <img src={profile.cover_image} className="w-full h-full object-cover" />
+          <img
+            src={profile.cover_image}
+            className="w-full h-full object-cover"
+          />
         )}
       </div>
 
@@ -53,12 +59,18 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
         </Avatar>
 
         {isOwn ? (
-          <Button onClick={()=>navigate("/profile/edit")} variant="outline" className="rounded-full font-bold h-9 px-4">
+          <Button
+            onClick={() => navigate("/profile/edit")}
+            variant="outline"
+            className="rounded-full font-bold h-9 px-4"
+          >
             Edit profile
           </Button>
         ) : (
           <Button
-            onClick={() => following ? unFollow(profile.user_id) : follow(profile.user_id)}
+            onClick={() =>
+              following ? unFollow(profile.user_id) : follow(profile.user_id)
+            }
             className={`rounded-full font-bold h-9 px-4 ${
               following
                 ? "bg-white text-gray-900 border border-gray-300 hover:border-red-300 hover:text-red-500"
@@ -72,13 +84,14 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
 
       {/* Bio */}
       <div className="px-4 pb-4">
-        <p className="font-bold text-xl text-gray-900">{profile.fullname ?? ""}</p>
+        <p className="font-bold text-xl text-gray-900">
+          {profile.fullname ?? ""}
+        </p>
         <p className="text-gray-500 text-sm">@{profile.username}</p>
         {profile.bio && (
           <p className="text-gray-800 text-sm mt-2">{profile.bio}</p>
         )}
       </div>
-
     </div>
   );
 }
