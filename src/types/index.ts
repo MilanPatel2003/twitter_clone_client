@@ -28,6 +28,8 @@ export interface Tweet {
   isLiked: boolean;
   isRetweeted: boolean;
   type: "tweet" | "retweet";
+  retweeted_by_fullname:string
+
 }
 
 export interface Comment {

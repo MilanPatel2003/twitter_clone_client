@@ -6,7 +6,6 @@ import { type User, type Tweet } from "@/types";
 import api from "@/lib/api";
 import { MainLayout } from "@/components/Layout/MainLayout";
 import { ProfileTabs } from "@/components/Profile/ProfileTabs";
-import { useFeedTweets } from "@/hooks/useTweets";
 import { toast } from "sonner";
 
 export function ProfilePage() {
@@ -41,16 +40,15 @@ export function ProfilePage() {
       })
       .finally(() => setIsLoading(false));
   }, [username]);
-    const handleDeleteTweet = async(tweetId: number) => {
-      try {
-        await api.delete(`tweets/${tweetId}`);
-      } catch {
-        toast.error("Failed to delete tweet")
-      }
+const handleDeleteTweet = async (tweetId: number) => {
+  try {
+    await api.delete(`/tweets/${tweetId}`);
     setTweets((prev) => prev.filter((t) => t.tweet_id !== tweetId));
-    
-    
-  };
+    toast.success("Tweet deleted!");
+  } catch {
+    toast.error("Failed to delete tweet.");
+  }
+};
 
   if (isLoading) {
     return (

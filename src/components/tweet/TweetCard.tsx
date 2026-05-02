@@ -55,7 +55,7 @@ export function TweetCard({ tweet, onDelete }: Props) {
       {data.type === "retweet" && (
         <div className="flex items-center gap-1.5 text-gray-500 text-xs mb-2 ml-10">
           <Repeat2 className="w-3.5 h-3.5" />
-          <span>{data.fullname} retweeted</span>
+          <span>{data.retweeted_by_fullname} retweeted</span>
         </div>
       )}
 
