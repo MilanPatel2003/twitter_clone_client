@@ -15,13 +15,13 @@ export function TweetActions({ tweet, onLike, onRetweet, onComment }: Props) {
   return (
     <div className="flex items-center gap-6 mt-3">
       {/* Comment */}
-      <button
-        onClick={onComment}
-        className="flex items-center gap-1.5 text-gray-500 hover:text-[#1d9bf0] transition-colors"
-      >
-        <MessageCircle className="w-4 h-4" />
-        <span className="text-sm">{formatCount(0)}</span>
-      </button>
+   <button
+  onClick={onComment}
+  className="flex items-center gap-1.5 text-gray-500 hover:text-[#1d9bf0] transition-colors"
+>
+  <MessageCircle className="w-4 h-4" />
+  <span className="text-sm">{formatCount(tweet.comment_count ?? 0)}</span>
+</button>
 
       {/* Retweet */}
       <button
@@ -44,6 +44,7 @@ export function TweetActions({ tweet, onLike, onRetweet, onComment }: Props) {
         <Heart className={`w-4 h-4 ${tweet.isLiked ? "fill-current" : ""}`} />
         <span className="text-sm">{tweet.like_count}</span>
       </button>
+      
 
     </div>
   );

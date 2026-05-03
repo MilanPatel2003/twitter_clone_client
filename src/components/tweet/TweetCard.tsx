@@ -85,7 +85,7 @@ const [data, setData] = useState({
             </div>
 
             {/* Delete button */}
-            {isOwner && (
+            {isOwner && onDelete  &&(
               <button
                 onClick={(e) => { e.stopPropagation(); onDelete?.(data.tweet_id); }}
                 className="text-gray-400 hover:text-red-500 transition-colors p-1"

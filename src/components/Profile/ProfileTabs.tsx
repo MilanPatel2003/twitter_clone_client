@@ -18,7 +18,7 @@ export function ProfileTabs({
   isLoading,
   onDeleteTweet,
 }: ProfileTabsProps) {
-  const renderList = (items: Tweet[]) => {
+  const renderList = (items: Tweet[],tab:string) => {
     if (isLoading) {
       return (
         <div className="py-10 text-center text-gray-400 text-sm">Loading...</div>
@@ -33,7 +33,7 @@ export function ProfileTabs({
       <TweetCard
         key={`${tweet.tweet_id}-${tweet.type}`}
         tweet={tweet}
-        onDelete={onDeleteTweet}
+      onDelete={tab === "tweets" ? onDeleteTweet : undefined}
       />
     ));
   };
@@ -52,13 +52,13 @@ export function ProfileTabs({
         ))}
       </TabsList>
       <TabsContent value="tweets" className="mt-0">
-        {renderList(tweets)}
+        {renderList(tweets,"tweets")}
       </TabsContent>
       <TabsContent value="replies" className="mt-0">
-        {renderList(replies)}
+        {renderList(replies,"replies")}
       </TabsContent>
       <TabsContent value="likes" className="mt-0">
-        {renderList(likes)}
+        {renderList(likes, "likes")}
       </TabsContent>
     </Tabs>
   );

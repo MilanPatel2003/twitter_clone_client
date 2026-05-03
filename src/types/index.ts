@@ -7,8 +7,8 @@ export interface User {
   bio?: string;
   profile_image?: string;
   cover_image?: string;
-  isFollowing?:boolean
-} 
+  isFollowing?: boolean;
+}
 
 export interface TweetMedia {
   media_url: string;
@@ -27,10 +27,11 @@ export interface Tweet {
   like_count: number;
   retweet_count: number;
   isLiked: boolean;
+  comment_count: number;
+
   isRetweeted: boolean;
   type: "tweet" | "retweet";
-  retweeted_by_fullname:string
-
+  retweeted_by_fullname: string;
 }
 
 export interface Comment {

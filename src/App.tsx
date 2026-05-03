@@ -8,6 +8,7 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { SearchPage } from "./pages/SearchPage";
 import { EditProfilePage } from "./pages/EditPage";
 import { FollowListPage } from "./pages/FollowListPage";
+import NotificationsPage from "./pages/NotificationsPage";
 // import { NotificationsPage } from "@/pages/NotificationsPage";
 
 const Spinner = () => (
@@ -65,7 +66,7 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-      {/*  <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />*/}
+       <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />
 
       <Route
         path="/search"
