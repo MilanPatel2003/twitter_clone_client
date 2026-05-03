@@ -58,7 +58,7 @@ export function LoginPage() {
               </Label>
               <Input
                 id="usernameORemail"
-                type="email"
+                type="text"
                 placeholder="you@example.com"
                 value={usernameORemail}
                 onChange={(e) => setusernameORemail(e.target.value)}

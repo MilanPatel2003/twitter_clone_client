@@ -27,7 +27,7 @@ export function TweetActions({ tweet, onLike, onRetweet, onComment }: Props) {
       <button
         onClick={onRetweet}
         className={`flex items-center gap-1.5 transition-colors ${
-          tweet.isLiked ? "text-green-500" : "text-gray-500 hover:text-green-500"
+          tweet.isRetweeted ? "text-green-500" : "text-gray-500 hover:text-green-500"
         }`}
       >
         <Repeat2 className="w-4 h-4" />

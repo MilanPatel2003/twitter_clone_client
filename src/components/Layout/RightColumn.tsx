@@ -1,6 +1,4 @@
 // src/components/layout/RightColumn.tsx
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,14 +33,7 @@ const WHO_TO_FOLLOW = [
 export function RightColumn() {
   return (
     <aside className="w-[350px] py-2 pl-6 sticky top-0 h-screen overflow-y-auto hidden lg:block">
-      {/* Search bar */}
-      <div className="relative mb-4">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-        <Input
-          placeholder="Search Twitter"
-          className="pl-10 rounded-full bg-gray-100 border-transparent focus-visible:bg-white focus-visible:border-[#1d9bf0] focus-visible:ring-0 text-sm"
-        />
-      </div>
+    
 
       {/* What's happening */}
       <Card className="border border-gray-200 rounded-2xl overflow-hidden mb-4">

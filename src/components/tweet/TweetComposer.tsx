@@ -21,7 +21,8 @@ export function TweetComposer({ onTweet }: Props) {
   const videoRef = useRef<HTMLInputElement>(null);
 
   const MAX = 280;
-  const canPost = content.trim().length > 0 && content.length <= MAX && !isPosting;
+  const canPost =
+    content.trim().length > 0 && content.length <= MAX && !isPosting;
 
   // When user picks a file
   const handleFile = (picked: File, type: "image" | "video") => {
@@ -52,7 +53,6 @@ export function TweetComposer({ onTweet }: Props) {
 
   return (
     <div className="flex gap-3 px-4 py-3 border-b border-gray-200">
-
       {/* Avatar */}
       <Avatar className="w-10 h-10 shrink-0 mt-1">
         <AvatarImage src={user?.profile_image} />
@@ -62,16 +62,19 @@ export function TweetComposer({ onTweet }: Props) {
       </Avatar>
 
       <div className="flex-1">
-
         {/* Text input */}
         <textarea
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            setContent(e.target.value);
+            e.target.style.height = "auto";
+            e.target.style.height = e.target.scrollHeight + "px";
+          }}
           placeholder="What's happening?"
-          rows={2}
-          className="w-full resize-none text-gray-900 placeholder-gray-400 text-xl outline-none bg-transparent pt-2"
+          rows={1}
+          className="w-full resize-none text-gray-900 placeholder-gray-400 text-xl outline-none bg-transparent pt-2 overflow-hidden"
+          style={{ minHeight: "48px" }}
         />
-
         {/* Media preview */}
         {preview && (
           <div className="relative mt-2 rounded-2xl overflow-hidden border border-gray-200">
@@ -86,14 +89,17 @@ export function TweetComposer({ onTweet }: Props) {
             {fileType === "image" ? (
               <img src={preview} className="w-full max-h-72 object-cover" />
             ) : (
-              <video src={preview} controls className="w-full max-h-72 bg-black" />
+              <video
+                src={preview}
+                controls
+                className="w-full max-h-72 bg-black"
+              />
             )}
           </div>
         )}
 
         {/* Bottom row */}
         <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-
           {/* Media buttons */}
           <div className="flex items-center gap-1">
             {/* Hidden file inputs */}
@@ -140,7 +146,9 @@ export function TweetComposer({ onTweet }: Props) {
           {/* Char count + post button */}
           <div className="flex items-center gap-3">
             {content.length > 0 && (
-              <span className={`text-sm ${content.length > MAX ? "text-red-500" : "text-gray-400"}`}>
+              <span
+                className={`text-sm ${content.length > MAX ? "text-red-500" : "text-gray-400"}`}
+              >
                 {MAX - content.length}
               </span>
             )}
@@ -152,7 +160,6 @@ export function TweetComposer({ onTweet }: Props) {
               {isPosting ? "Posting..." : "Tweet"}
             </Button>
           </div>
-
         </div>
       </div>
     </div>

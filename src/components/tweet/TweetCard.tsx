@@ -20,7 +20,11 @@ interface Props {
 export function TweetCard({ tweet, onDelete }: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [data, setData] = useState(tweet);
+const [data, setData] = useState({
+  ...tweet,
+  isLiked: Boolean(tweet.isLiked),
+  isRetweeted: Boolean(tweet.isRetweeted),
+});
   const { likeTweet, unlikeTweet } = useReactions();
 
 

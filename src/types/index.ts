@@ -7,6 +7,7 @@ export interface User {
   bio?: string;
   profile_image?: string;
   cover_image?: string;
+  isFollowing?:boolean
 } 
 
 export interface TweetMedia {

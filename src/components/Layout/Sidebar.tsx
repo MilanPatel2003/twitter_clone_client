@@ -7,6 +7,7 @@ import {
   LogOut,
   Feather,
   Search,
+  LucideFileCodeCorner,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -22,7 +23,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { icon: Home, label: "Home", to: "/" },
   { icon: Bell, label: "Notifications", to: "/notifications" },
-    { icon: Search, label: "Search", to: "/search" },
+  { icon: Search, label: "Search", to: "/search" },
+    { icon: LucideFileCodeCorner, label: "Github", to: "https://github.com/MilanPatel2003/twitter-clone-server" },
 
   { icon: User, label: "Profile", to: "/profile" },
 ];
@@ -30,7 +32,7 @@ const navItems = [
 export function Sidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-console.log(user)
+  console.log(user);
   const handleLogout = async () => {
     await logout();
     navigate("/login");
@@ -51,8 +53,7 @@ console.log(user)
       {/* Nav links */}
       <nav className="flex flex-col gap-1 w-full">
         {navItems.map(({ icon: Icon, label, to }) => {
-          const resolvedTo =
-            to === "/profile" ? `/${user?.username}` : to;
+          const resolvedTo = to === "/profile" ? `/${user?.username}` : to;
           return (
             <NavLink key={label} to={resolvedTo} end={to === "/"}>
               {({ isActive }) => (
@@ -60,13 +61,13 @@ console.log(user)
                   className={cn(
                     "flex items-center gap-4 px-3 py-3 rounded-full transition-colors w-fit xl:w-full",
                     "hover:bg-gray-100 cursor-pointer",
-                    isActive && "font-bold"
+                    isActive && "font-bold",
                   )}
                 >
                   <Icon
                     className={cn(
                       "w-6 h-6 shrink-0",
-                      isActive ? "text-gray-900" : "text-gray-700"
+                      isActive ? "text-gray-900" : "text-gray-700",
                     )}
                   />
                   <span className="hidden xl:block text-gray-900 text-xl">
@@ -104,7 +105,7 @@ console.log(user)
                 </Avatar>
                 <div className="hidden xl:block min-w-0">
                   <p className="font-bold text-gray-900 text-sm truncate">
-                    {user.username}
+                    {user.fullname}
                   </p>
                   <p className="text-gray-500 text-sm truncate">
                     @{user.username}
@@ -118,7 +119,7 @@ console.log(user)
                 onClick={handleLogout}
               >
                 <LogOut className="w-4 h-4 mr-2" />
-                Log out @{user.username}
+                Log out
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

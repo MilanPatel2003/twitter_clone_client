@@ -7,6 +7,7 @@ import { TweetDetailPage } from "./pages/TweetDetails";
 import { ProfilePage } from "./pages/ProfilePage";
 import { SearchPage } from "./pages/SearchPage";
 import { EditProfilePage } from "./pages/EditPage";
+import { FollowListPage } from "./pages/FollowListPage";
 // import { NotificationsPage } from "@/pages/NotificationsPage";
 
 const Spinner = () => (
@@ -65,14 +66,7 @@ function AppRoutes() {
         }
       />
       {/*  <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />*/}
-      <Route
-        path="/:username"
-        element={
-          <PrivateRoute>
-            <ProfilePage />
-          </PrivateRoute>
-        }
-      />
+
       <Route
         path="/search"
         element={
@@ -86,6 +80,22 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <EditProfilePage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/:username/:userId/:tab"
+        element={
+          <PrivateRoute>
+            <FollowListPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/:username"
+        element={
+          <PrivateRoute>
+            <ProfilePage />
           </PrivateRoute>
         }
       />
