@@ -9,6 +9,8 @@ import { SearchPage } from "./pages/SearchPage";
 import { EditProfilePage } from "./pages/EditPage";
 import { FollowListPage } from "./pages/FollowListPage";
 import NotificationsPage from "./pages/NotificationsPage";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "./pages/ResetPasswordPage";
 // import { NotificationsPage } from "@/pages/NotificationsPage";
 
 const Spinner = () => (
@@ -66,7 +68,14 @@ function AppRoutes() {
           </PrivateRoute>
         }
       />
-       <Route path="/notifications" element={<PrivateRoute><NotificationsPage /></PrivateRoute>} />
+      <Route
+        path="/notifications"
+        element={
+          <PrivateRoute>
+            <NotificationsPage />
+          </PrivateRoute>
+        }
+      />
 
       <Route
         path="/search"
@@ -90,6 +99,23 @@ function AppRoutes() {
           <PrivateRoute>
             <FollowListPage />
           </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPasswordPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/reset-password"
+        element={
+          <PublicRoute>
+            <ResetPasswordPage />
+          </PublicRoute>
         }
       />
       <Route
