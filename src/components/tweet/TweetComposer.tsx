@@ -20,7 +20,7 @@ export function TweetComposer({ onTweet }: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
 
-  const MAX = 280;
+  const MAX = 600;
   const canPost =
     content.trim().length > 0 && content.length <= MAX && !isPosting;
 

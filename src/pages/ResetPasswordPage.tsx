@@ -21,7 +21,6 @@ export function ResetPasswordPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // countdown timer — 2 minutes
   const [secondsLeft, setSecondsLeft] = useState(120);
   const isExpired = secondsLeft <= 0;
 
@@ -77,12 +76,12 @@ export function ResetPasswordPage() {
     }
   };
 
-  // format seconds as mm:ss
-  const formatTime = (secs: number) => {
-    const m = Math.floor(secs / 60).toString().padStart(2, "0");
-    const s = (secs % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  };
+  // // format seconds as mm:ss
+  // const formatTime = (secs: number) => {
+  //   const m = Math.floor(secs / 60).toString().padStart(2, "0");
+  //   const s = (secs % 60).toString().padStart(2, "0");
+  //   return `${m}:${s}`;
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-6">
@@ -113,7 +112,7 @@ export function ResetPasswordPage() {
           <div className="text-right">
             <p className="text-xs text-gray-500 mb-0.5">Expires in</p>
             <p className={`text-lg font-bold ${isExpired ? "text-red-500" : secondsLeft <= 30 ? "text-orange-500" : "text-gray-700"}`}>
-              {isExpired ? "Expired" : formatTime(secondsLeft)}
+              {isExpired ? "Expired" : (secondsLeft)} s
             </p>
           </div>
         </div>
