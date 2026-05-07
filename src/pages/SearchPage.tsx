@@ -4,8 +4,8 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MainLayout } from "@/components/Layout/MainLayout";
-import { TweetCard } from "@/components/tweet/TweetCard";
 import { useSearch } from "@/hooks/useSearch";
+import { SearchCard } from "@/components/search/SearchCard";
 
 export function SearchPage() {
   const [query, setQuery] = useState("");
@@ -68,7 +68,7 @@ export function SearchPage() {
         <div>
           <p className="px-4 py-2 font-bold text-gray-900">Tweets</p>
           {tweets.map((tweet) => (
-            <TweetCard key={tweet.tweet_id} tweet={tweet} />
+            <SearchCard key={tweet.tweet_id} tweet={tweet} />
           ))}
         </div>
       )}
