@@ -1,12 +1,11 @@
 // src/components/profile/ProfileHeader.tsx
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, VerifiedIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { type User } from "@/types";
 import { useAuth } from "@/context/AuthContext";
 import { useFollow, useFollowers, useFollowing } from "@/hooks/useFollow";
-
 interface Props {
   profile: User;
   tweetCount?: number;
@@ -33,7 +32,7 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
           <ArrowLeft className="w-5 h-5" />
         </button>
         <div>
-          <p className="font-bold text-lg text-gray-900">{profile.fullname}</p>
+          <p className="font-bold text-lg text-gray-900">{profile.fullname} </p>
           <p className="text-gray-500 text-sm">{tweetCount} Tweets</p>
         </div>
       </div>
@@ -50,7 +49,7 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
         <Avatar className="w-24 h-24 border-4 border-white">
           <AvatarImage src={profile.profile_image} />
           <AvatarFallback className="bg-[#1d9bf0] text-white text-3xl font-bold">
-            {profile.fullname?.[0]?.toUpperCase() ?? "U"}
+            {profile.fullname?.[0]?.toUpperCase() ?? "U"} 
           </AvatarFallback>
         </Avatar>
 
@@ -78,8 +77,15 @@ export function ProfileHeader({ profile, tweetCount = 0, isFollowing = false }: 
 
       {/* Bio */}
       <div className="px-4 pb-4">
-        <p className="font-bold text-xl text-gray-900">{profile.fullname ?? ""}</p>
-        <p className="text-gray-500 text-sm">@{profile.username}</p>
+         <div className="flex items-center gap-1">
+    <p className="font-bold text-xl text-gray-900">
+      {profile.fullname ?? ""}
+    </p>
+
+    {profile.username === "milan22102003" && (
+      <VerifiedIcon className="w-5 h-5 text-white fill-blue-400" />
+    )}
+  </div>
 
         {/* Followers + Following count */}
         <div className="flex items-center gap-4 mt-2">
