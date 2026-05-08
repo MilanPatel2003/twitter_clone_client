@@ -2,7 +2,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   Home,
-  Bell,
   User,
   LogOut,
   Feather,
@@ -22,7 +21,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { icon: Home, label: "Home", to: "/" },
-  { icon: Bell, label: "Notifications", to: "/notifications" },
+  // { icon: Bell, label: "Notifications", to: "/notifications" },
   { icon: Search, label: "Search", to: "/search" },
     { icon: LucideFileCodeCorner, label: "Github", to: "https://github.com/MilanPatel2003/twitter-clone-server" },
 
