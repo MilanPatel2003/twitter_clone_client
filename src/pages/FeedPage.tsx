@@ -3,11 +3,31 @@ import { MainLayout } from "@/components/Layout/MainLayout";
 import { TweetCard } from "@/components/tweet/TweetCard";
 import { TweetComposer } from "@/components/tweet/TweetComposer";
 import { useFeedTweets } from "@/hooks/useTweets";
+import { useEffect } from "react";
 
 export function FeedPage() {
-  const { tweets, isLoading, error, deleteTweet , createTweet} =
-    useFeedTweets();
+  const {
+    tweets,
+    isLoading,
+    error,
+    deleteTweet,
+    createTweet,
+    hasMore,
+    isLoadingMore,
+    loadMore,
+  } = useFeedTweets();
+  useEffect(() => {
+    const handleScroll = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.body.scrollHeight - 100;
+      if (nearBottom) {
+        loadMore();
+      }
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loadMore]);
   return (
     <MainLayout>
       {/* Header */}
@@ -35,13 +55,23 @@ export function FeedPage() {
           </p>
         </div>
       ) : (
-        tweets.map((tweet) => (
-          <TweetCard
-            key={`${tweet.tweet_id}-${tweet.type}`}
-            tweet={tweet}
-            onDelete={deleteTweet}
-          />
-        ))
+        <>
+          {tweets.map((tweet, index) => (
+            <TweetCard
+              key={`${tweet.tweet_id}-${index}`}
+              tweet={tweet}
+              onDelete={deleteTweet}
+            />
+          ))}
+          <div className="flex justify-center py-10">
+            {isLoadingMore && (
+              <div className="w-6 h-6 border-2 border-[#1d9bf0] border-t-transparent rounded-full animate-spin" />
+            )}
+            {!hasMore && !isLoadingMore && (
+              <p className="text-gray-400 text-sm">You're all caught up!</p>
+            )}
+          </div>
+        </>
       )}
     </MainLayout>
   );

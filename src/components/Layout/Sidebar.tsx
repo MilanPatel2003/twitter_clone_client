@@ -32,7 +32,6 @@ const navItems = [
 export function Sidebar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  console.log(user);
   const handleLogout = async () => {
     await logout();
     navigate("/login");
