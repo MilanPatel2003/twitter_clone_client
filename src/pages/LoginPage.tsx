@@ -85,9 +85,9 @@ export function LoginPage() {
             {error && (
               <p className="text-red-500 text-sm text-center">{error}</p>
             )}
-            <Link to="/forgot-password" className="text-[#1d9bf0] text-sm hover:underline">
+            {/* <Link to="/forgot-password" className="text-[#1d9bf0] text-sm hover:underline">
   Forgot password?
-</Link>
+</Link> */}
 
             <Button
               type="submit"
