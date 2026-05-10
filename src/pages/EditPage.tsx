@@ -15,6 +15,11 @@ export function EditProfilePage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [avatar, setAvatar] = useState<any>(user?.profile_image);
+    const [cover, setCover] = useState<any>(user?.cover_image);
+
+  const [coverUploading, setCoverUploading] = useState(false);
+  const [avatarUploading, setAvatarUploading] = useState(false);
 
   const coverRef = useRef<HTMLInputElement>(null);
   const avatarRef = useRef<HTMLInputElement>(null);
@@ -25,7 +30,7 @@ export function EditProfilePage() {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -47,32 +52,43 @@ export function EditProfilePage() {
   const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
     const formData = new FormData();
     formData.append("cover_image", file);
+
     try {
-      await api.put("/users/cover-image", formData);
+      setCoverUploading(true);
+      const res = await api.put("/users/cover-image", formData);
       toast.success("Cover image updated!");
+      setCover(res.data.url)
     } catch {
       toast.error("Failed to upload cover.");
+    } finally {
+      setCoverUploading(false);
     }
   };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
     const formData = new FormData();
     formData.append("profile_pic", file);
+
     try {
-      await api.put("/users/profile-image", formData);
+      setAvatarUploading(true);
+      const res = await api.put("/users/profile-image", formData);
       toast.success("Profile image updated!");
+      setAvatar(res.data.url);
     } catch {
       toast.error("Failed to upload avatar.");
+    } finally {
+      setAvatarUploading(false);
     }
   };
 
   return (
     <MainLayout>
-
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 sticky top-0 bg-white/90 backdrop-blur-sm border-b border-gray-200 z-10">
         <div className="flex items-center gap-4">
@@ -96,7 +112,7 @@ export function EditProfilePage() {
       {/* Cover image */}
       <div className="relative h-48 bg-gradient-to-r from-[#1d9bf0]/30 to-[#1d9bf0]/10">
         {user?.cover_image && (
-          <img src={user.cover_image} className="w-full h-full object-cover" />
+          <img src={cover} className="w-full h-full object-cover" />
         )}
         <input
           ref={coverRef}
@@ -109,7 +125,13 @@ export function EditProfilePage() {
           onClick={() => coverRef.current?.click()}
           className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors"
         >
-          <Camera className="w-8 h-8 text-white" />
+          {coverUploading ? (
+            <div className="flex justify-center py-10">
+              <div className="w-6 h-6 border-2 border-[#1d9bf0] border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : (
+            <Camera className="w-6 h-6 text-white" />
+          )}{" "}
         </button>
       </div>
 
@@ -117,7 +139,7 @@ export function EditProfilePage() {
       <div className="px-4 -mt-12 mb-4">
         <div className="relative w-24 h-24">
           <Avatar className="w-24 h-24 border-4 border-white">
-            <AvatarImage src={user?.profile_image} />
+            <AvatarImage src={avatar} />
             <AvatarFallback className="bg-[#1d9bf0] text-white text-3xl font-bold">
               {user?.fullname?.[0]?.toUpperCase() ?? "U"}
             </AvatarFallback>
@@ -133,14 +155,19 @@ export function EditProfilePage() {
             onClick={() => avatarRef.current?.click()}
             className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 rounded-full transition-colors"
           >
-            <Camera className="w-6 h-6 text-white" />
+            {avatarUploading ? (
+              <div className="flex justify-center py-10">
+                <div className="w-6 h-6 border-2 border-[#1d9bf0] border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : (
+              <Camera className="w-6 h-6 text-white" />
+            )}
           </button>
         </div>
       </div>
 
       {/* Form */}
       <div className="px-4 space-y-5">
-
         {/* Full name */}
         <div className="space-y-1.5">
           <Label className="text-gray-500 text-sm">Name</Label>
@@ -172,7 +199,6 @@ export function EditProfilePage() {
             {form.bio.length}/160
           </p>
         </div>
-
       </div>
     </MainLayout>
   );
