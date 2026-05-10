@@ -18,13 +18,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
+import { BugReportDialog } from "../Bug/BugReportDialog";
 
 const navItems = [
   { icon: Home, label: "Home", to: "/" },
   // { icon: Bell, label: "Notifications", to: "/notifications" },
   { icon: Search, label: "Search", to: "/search" },
     { icon: LucideFileCodeCorner, label: "Github", to: "https://github.com/MilanPatel2003/twitter-clone-server" },
-
+    
   { icon: User, label: "Profile", to: "/profile" },
 ];
 
@@ -39,6 +40,7 @@ export function Sidebar() {
   return (
     <aside className="h-screen sticky top-0 flex flex-col items-end pr-2 xl:pr-6 py-2 w-[72px] xl:w-[275px]">
       {/* Logo */}
+      
       <div className="w-full flex justify-center xl:justify-start mb-2 px-3">
         <div className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer transition-colors">
           {/* Classic Twitter bird icon */}
@@ -77,6 +79,9 @@ export function Sidebar() {
           );
         })}
       </nav>
+      <div className="mt-1 w-full">
+  <BugReportDialog />
+</div>
 
       {/* Tweet button */}
       <div className="mt-4 w-full flex justify-center xl:justify-start px-0">
@@ -123,6 +128,7 @@ export function Sidebar() {
           </DropdownMenu>
         </div>
       )}
+      
     </aside>
   );
 }
